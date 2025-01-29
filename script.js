@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         sideMenu.classList.add('active');
         document.body.style.overflow = 'hidden';
         
-        // Simplified animation
         gsap.fromTo(sideMenu, 
             { x: "-100%" },
             {
@@ -31,7 +30,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         );
 
-        // Fade in overlay
+        gsap.fromTo(
+            `.menu-content[data-menu="${currentMenu}"] li`,
+            {
+                x: -30,
+                opacity: 0
+            },
+            {
+                x: 0,
+                opacity: 1,
+                duration: 0.4,
+                stagger: 0.05,
+                ease: "power2.out",
+                delay: 0.2
+            }
+        );
+
         gsap.to(overlay, {
             opacity: 1,
             duration: 0.6,
@@ -41,10 +55,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close Menu
     function closeMenu() {
+        gsap.to(
+            `.menu-content[data-menu="${currentMenu}"] li`,
+            {
+                x: -30,
+                opacity: 0,
+                duration: 0.3,
+                stagger: 0.05,
+                ease: "power2.in"
+            }
+        );
+
         gsap.to(sideMenu, {
             x: "-100%",
             duration: 0.6,
             ease: "power4.inOut",
+            delay: 0.2,
             onComplete: () => {
                 overlay.classList.remove('active');
                 sideMenu.classList.remove('active');
@@ -53,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Fade out overlay
         gsap.to(overlay, {
             opacity: 0,
             duration: 0.6,
@@ -66,8 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentMenuElement = document.querySelector(`.menu-content[data-menu="${currentMenu}"]`);
         const nextMenuElement = document.querySelector(`.menu-content[data-menu="${submenuId}"]`);
         
-        menuStack.push(currentMenu);
-        currentMenu = submenuId;
+        if (!nextMenuElement) return; // Guard clause for invalid submenu
+        
+        gsap.to(currentMenuElement.querySelectorAll('li'), {
+            x: -30,
+            opacity: 0,
+            duration: 0.3,
+            stagger: 0.05,
+            ease: "power2.in"
+        });
         
         gsap.to(currentMenuElement, {
             x: "-100%",
@@ -75,9 +107,28 @@ document.addEventListener('DOMContentLoaded', () => {
             ease: "power3.inOut"
         });
         
+        menuStack.push(currentMenu);
+        currentMenu = submenuId;
+        
         gsap.fromTo(nextMenuElement,
             { x: "100%" },
             { x: "0%", duration: 0.6, ease: "power3.inOut" }
+        );
+        
+        gsap.fromTo(
+            nextMenuElement.querySelectorAll('li'),
+            {
+                x: 30,
+                opacity: 0
+            },
+            {
+                x: 0,
+                opacity: 1,
+                duration: 0.4,
+                stagger: 0.05,
+                ease: "power2.out",
+                delay: 0.3
+            }
         );
         
         backButton.classList.add('visible');
@@ -91,7 +142,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const previousMenu = menuStack.pop();
         const previousMenuElement = document.querySelector(`.menu-content[data-menu="${previousMenu}"]`);
         
-        currentMenu = previousMenu;
+        gsap.to(currentMenuElement.querySelectorAll('li'), {
+            x: 30,
+            opacity: 0,
+            duration: 0.3,
+            stagger: 0.05,
+            ease: "power2.in"
+        });
         
         gsap.to(currentMenuElement, {
             x: "100%",
@@ -99,9 +156,27 @@ document.addEventListener('DOMContentLoaded', () => {
             ease: "power3.inOut"
         });
         
+        currentMenu = previousMenu;
+        
         gsap.fromTo(previousMenuElement,
             { x: "-100%" },
             { x: "0%", duration: 0.6, ease: "power3.inOut" }
+        );
+        
+        gsap.fromTo(
+            previousMenuElement.querySelectorAll('li'),
+            {
+                x: -30,
+                opacity: 0
+            },
+            {
+                x: 0,
+                opacity: 1,
+                duration: 0.4,
+                stagger: 0.05,
+                ease: "power2.out",
+                delay: 0.3
+            }
         );
         
         if (menuStack.length === 0) {
@@ -118,8 +193,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.menu-content').forEach(menu => {
             if (menu.dataset.menu === 'main') {
                 gsap.set(menu, { x: "0%" });
+                gsap.set(menu.querySelectorAll('li'), { x: 0, opacity: 1 });
             } else {
                 gsap.set(menu, { x: "100%" });
+                gsap.set(menu.querySelectorAll('li'), { x: 0, opacity: 0 });
             }
         });
     }
@@ -144,10 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event Listeners
-    menuToggle.addEventListener('click', () => {
-        openMenu();
-        resetMenu();
-    });
+    menuToggle.addEventListener('click', openMenu);
     closeButton.addEventListener('click', closeMenu);
     overlay.addEventListener('click', closeMenu);
     backButton.addEventListener('click', goBack);
@@ -156,14 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.menu-content a').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            
             const submenu = link.dataset.submenu;
-            const image = link.dataset.image;
-            
-            if (image) {
-                changeImage(image);
-            }
-            
             if (submenu) {
                 showSubmenu(submenu);
             }
