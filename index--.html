@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviceom Singapore Menu</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Menu Trigger */
+        .menu-trigger {
+            position: fixed;
+            left: 30px;
+            top: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Main Menu Container */
+        .side-menu {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 50%;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1001;
+            overflow: visible;
+        }
+
+        .side-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Menu Content */
+        .menu-content {
+            padding: 20px;
+            position: relative;
+            height: 100%;
+            overflow-y: auto;
+            background: #ffffff;
+        }
+
+        /* Close Button */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #666;
+            z-index: 2;
+        }
+
+        /* Menu Items */
+        .menu-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            color: #333;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .menu-item.has-submenu::after {
+            content: '›';
+            float: right;
+            font-size: 24px;
+            color: #666;
+        }
+
+        /* Submenu Styles */
+        .submenu {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            background: #f8f8f8;
+            padding: 20px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .submenu.active {
+            transform: translateX(-100%);
+        }
+
+        .back-button {
+            cursor: pointer;
+            margin-bottom: 15px;
+            padding: 8px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Image Preview Container */
+        .image-preview {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 50%;
+            height: 100vh;
+            background-color: #f8f8f8;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Hover States */
+        .menu-item:hover {
+            color: #0066cc;
+            background-color: rgba(0, 102, 204, 0.05);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .side-menu {
+                width: 100%;
+                transform: translateX(-100%);
+            }
+
+            .submenu {
+                width: 100%;
+                left: 100%;
+            }
+
+            .image-preview {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="menu-trigger">☰</div>
+
+    <div class="side-menu">
+        <div class="close-btn">×</div>
+        <div class="menu-content">
+            <!-- Main Menu -->
+            <div class="menu-item">Home</div>
+
+            <div class="menu-item has-submenu">Services
+                <!-- Services Submenu -->
+                <div class="submenu">
+                    <div class="back-button">‹ Back to Main Menu</div>
+                    <div class="menu-item">IT Support & Maintenance</div>
+                    <div class="menu-item">Cloud Solutions</div>
+                    <div class="menu-item">Network Infrastructure</div>
+                    <div class="menu-item">Cybersecurity Solutions</div>
+                    <div class="menu-item">Data Backup & Recovery</div>
+                </div>
+            </div>
+
+            <div class="menu-item has-submenu">Products
+                <!-- Products Submenu -->
+                <div class="submenu">
+                    <div class="back-button">‹ Back to Main Menu</div>
+                    <div class="menu-item">Hardware Solutions</div>
+                    <div class="menu-item">Software Solutions</div>
+                    <div class="menu-item">Network Equipment</div>
+                    <div class="menu-item">Security Systems</div>
+                </div>
+            </div>
+
+            <div class="menu-item has-submenu">Industries
+                <!-- Industries Submenu -->
+                <div class="submenu">
+                    <div class="back-button">‹ Back to Main Menu</div>
+                    <div class="menu-item">Healthcare</div>
+                    <div class="menu-item">Finance</div>
+                    <div class="menu-item">Education</div>
+                    <div class="menu-item">Retail</div>
+                    <div class="menu-item">Manufacturing</div>
+                </div>
+            </div>
+
+            <div class="menu-item">About Us</div>
+            <div class="menu-item">Contact Us</div>
+        </div>
+    </div>
+
+    <div class="overlay"></div>
+
+    <!-- Add GSAP library before your script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <!-- Add Image Preview Container -->
+    <div class="image-preview">
+        <img src="" alt="Preview">
+    </div>
+
+    <script>
+        const menuTrigger = document.querySelector('.menu-trigger');
+        const sideMenu = document.querySelector('.side-menu');
+        const overlay = document.querySelector('.overlay');
+        const closeBtn = document.querySelector('.close-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        // Toggle Main Menu with GSAP
+        menuTrigger.addEventListener('click', () => {
+            sideMenu.classList.add('active');
+            overlay.classList.add('active');
+
+            gsap.fromTo(sideMenu,
+                { x: '-100%' },
+                {
+                    x: '0%',
+                    duration: 0.8,
+                    ease: 'power4.out'
+                }
+            );
+
+            gsap.from('.menu-content > .menu-item', {
+                x: -50,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'power2.out',
+                delay: 0.3
+            });
+        });
+
+        // Close Menu with GSAP
+        function closeMenu() {
+            gsap.to('.menu-content > .menu-item', {
+                x: -30,
+                opacity: 0,
+                duration: 0.3,
+                stagger: 0.05,
+                ease: 'power2.in',
+                onComplete: () => {
+                    sideMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.querySelectorAll('.submenu').forEach(sub => sub.classList.remove('active'));
+                    // Reset menu items position
+                    gsap.set('.menu-content > .menu-item', { clearProps: 'all' });
+                }
+            });
+        }
+
+        overlay.addEventListener('click', closeMenu);
+        closeBtn.addEventListener('click', closeMenu);
+
+        // Submenu Handling with GSAP
+        menuItems.forEach(item => {
+            item.addEventListener('click', function (e) {
+                const submenu = this.querySelector('.submenu');
+                if (submenu) {
+                    submenu.classList.add('active');
+
+                    // Animate submenu items
+                    gsap.from(submenu.querySelectorAll('.menu-item'), {
+                        x: 50,
+                        opacity: 0,
+                        duration: 0.5,
+                        stagger: 0.1,
+                        ease: 'power2.out'
+                    });
+                }
+            });
+        });
+
+        // Back Button Handling with GSAP
+        document.querySelectorAll('.back-button').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const submenu = this.closest('.submenu');
+
+                gsap.to(submenu.querySelectorAll('.menu-item'), {
+                    x: 30,
+                    opacity: 0,
+                    duration: 0.3,
+                    stagger: 0.05,
+                    ease: 'power2.in',
+                    onComplete: () => {
+                        submenu.classList.remove('active');
+                        // Reset submenu items position
+                        gsap.set(submenu.querySelectorAll('.menu-item'), { clearProps: 'all' });
+                    }
+                });
+            });
+        });
+
+        // Image preview configuration
+        const imageMap = {
+            'IT Support & Maintenance': '/path/to/it-support.jpg',
+            'Cloud Solutions': '/path/to/cloud.jpg',
+            'Network Infrastructure': '/path/to/network.jpg',
+            'Cybersecurity Solutions': '/path/to/security.jpg',
+            'Data Backup & Recovery': '/path/to/backup.jpg',
+            'Hardware Solutions': '/path/to/hardware.jpg',
+            'Security Systems': '/path/to/security-systems.jpg',
+            'Healthcare': '/path/to/healthcare.jpg',
+            'Manufacturing': '/path/to/manufacturing.jpg'
+        };
+
+        // Handle image previews
+        const imagePreview = document.querySelector('.image-preview');
+        const previewImg = imagePreview.querySelector('img');
+
+        document.querySelectorAll('.menu-item').forEach(item => {
+            const itemText = item.textContent.trim();
+
+            if (imageMap[itemText]) {
+                item.addEventListener('mouseenter', () => {
+                    previewImg.src = imageMap[itemText];
+                    gsap.to(imagePreview, {
+                        opacity: 1,
+                        duration: 0.6,
+                        ease: 'expo.inOut'
+                    });
+                });
+
+                item.addEventListener('mouseleave', () => {
+                    gsap.to(imagePreview, {
+                        opacity: 0,
+                        duration: 0.6,
+                        ease: 'expo.inOut'
+                    });
+                });
+            }
+        });
+
+        // Preload images
+        window.addEventListener('load', () => {
+            Object.values(imageMap).forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        });
+    </script>
+</body>
+
+</html>

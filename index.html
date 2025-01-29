@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviceom Singapore Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add GSAP for smooth animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+    <!-- Hamburger Menu Button -->
+    <button class="menu-toggle" aria-label="Open Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu">
+        <div class="menu-container">
+            <!-- Menu Navigation Header -->
+            <div class="menu-header">
+
+                <button class="close-menu" style="margin-left: auto;" aria-label="Close Menu">×</button>
+            </div>
+
+            <!-- Menu Content Wrapper -->
+            <div class="menu-wrapper">
+                <!-- Main Menu -->
+
+                <div class="menu-content" data-menu="main">
+                    <ul>
+                        <li><a href="#" data-submenu="about">About Us <span class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="aesthetic">Aesthetic & Medical Equipment <span
+                                    class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="skincare">Skincare & Professional Products <span
+                                    class="arrow">→</span></a></li>
+                        <li><a href="#">Engineering Services</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- About Us Submenu -->
+                <button class="back-button" aria-label="Go Back">
+                    <svg width="24" height="24" viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                    </svg>
+                </button>
+                <div class="menu-content" data-menu="about">
+
+                    <ul>
+                        <li><a href="#">Corporate Information</a></li>
+                        <li><a href="#">Our People</a></li>
+                    </ul>
+                </div>
+
+                <!-- Aesthetic & Medical Equipment Submenu -->
+                <div class="menu-content" data-menu="aesthetic">
+
+                    <ul>
+                        <li><a href="#" data-submenu="accuvein">AccuVein <span class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="amp">AMP <span class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="conmed">Conmed <span class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="dermalux">Dermalux <span class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="fotona">Fotona <span class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="gme">GME <span class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="natus">Natus <span class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="sciton">Sciton <span class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="snj">SNJ Medical <span class="arrow">→</span></a></li>
+                        <li><a href="#">Swift Microwave Therapy</a></li>
+                        <li><a href="#" data-submenu="walker">Walker Filtration <span class="arrow">→</span></a></li>
+                        <li><a href="#" data-submenu="zimmer">Zimmer <span class="arrow">→</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Skincare & Professional Products Submenu -->
+
+                <div class="menu-content" data-menu="skincare">
+
+                    <ul>
+                        <li><a href="#">Endor Technologies</a></li>
+                        <li><a href="#">Gold PTT</a></li>
+                        <li><a href="#" data-submenu="universkin">Universkin <span class="arrow">→</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Product Submenus -->
+                <div class="menu-content" data-menu="accuvein">
+                    <ul>
+                        <li><a href="#">AV500 Vein Visualization Finder</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="amp">
+                    <ul>
+                        <li><a href="#">AQUAFIRMExs</a></li>
+                        <li><a href="#">DE|RIVE</a></li>
+                        <li><a href="#">EXO|E</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="conmed">
+                    <ul>
+                        <li><a href="#">Hyfrecator 2000</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="dermalux">
+                    <ul>
+                        <li><a href="#">Compact Lite</a></li>
+                        <li><a href="#">Flex MD</a></li>
+                        <li><a href="#">Tri-Wave MD</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="fotona">
+                    <ul>
+                        <li><a href="#">StarWalker MaQX</a></li>
+                        <li><a href="#">StarWalker PQX</a></li>
+                        <li><a href="#">FotonaSmooth XS</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="gme">
+                    <ul>
+                        <li><a href="#">FlexSys</a></li>
+                        <li><a href="#">LinScan</a></li>
+                        <li><a href="#">Twinscan</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="natus">
+                    <ul>
+                        <li><a href="#">NicView</a></li>
+                        <li><a href="#">Retcam Envision™</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="sciton">
+                    <ul>
+                        <li><a href="#">JouleX</a></li>
+                        <li><a href="#">mJoule</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="snj">
+                    <ul>
+                        <li><a href="#">Blue Eva</a></li>
+                        <li><a href="#">Blue Ice</a></li>
+                        <li><a href="#">Finexel</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="walker">
+                    <ul>
+                        <li><a href="#">LaserVac750 Smoke Evacuation Unit</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="zimmer">
+                    <ul>
+                        <li><a href="#">Cryo 6</a></li>
+                    </ul>
+                </div>
+
+                <div class="menu-content" data-menu="universkin">
+                    <ul>
+                        <li><a href="#">Skincare</a></li>
+                        <li><a href="#">Universkin S.TEP</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Image Section -->
+        <div class="menu-image">
+            <div class="image-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

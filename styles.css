@@ -1,0 +1,274 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow-x: hidden;
+    color: #1a1a1a;
+}
+
+/* Hamburger Menu Button */
+.menu-toggle {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.menu-toggle:hover {
+    transform: scale(1.05);
+}
+
+.menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #1a1a1a;
+    margin: 5px auto;
+    transition: 0.4s;
+    border-radius: 2px;
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s;
+    z-index: 150;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Side Menu */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 200;
+    display: flex;
+    transform: translateX(-100%);
+    transition: none;
+}
+
+/* Menu Container */
+.menu-container {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Menu Header */
+.menu-header {
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+}
+
+.back-button,
+.close-menu {
+    width: 40px;
+    height: 40px;
+    background: #d8268c;
+    color: white !important;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover,
+.close-menu:hover {
+    background: #efefef;
+    transform: scale(1.05);
+}
+
+.back-button {
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    position: absolute;
+    right: 60px;
+    top: 14px;
+    z-index: 99999;
+}
+
+.back-button.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-button svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+}
+
+.close-menu {
+    font-size: 24px;
+    color: #1a1a1a;
+}
+
+/* Menu Content */
+.menu-wrapper {
+    position: relative;
+    height: calc(100% - 90px);
+    overflow: hidden;
+}
+
+.menu-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+    transform: translateX(100%);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
+}
+
+.menu-content[data-menu="main"] {
+    transform: translateX(0);
+}
+
+.menu-content.active {
+    transform: translateX(0);
+}
+
+/* Menu Items */
+.menu-content ul {
+    list-style: none;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.menu-content li {
+    margin: 15px 0;
+}
+
+.menu-content a {
+    text-decoration: none;
+    color: #1a1a1a;
+    font-size: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: transparent;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
+
+.menu-content a:hover {
+    background: rgba(0, 0, 0, 0.03);
+    transform: translateX(5px);
+}
+
+.arrow {
+    font-size: 20px;
+    opacity: 0.5;
+    color: #d8268c;
+}
+
+/* Image Section */
+.menu-image {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: #f8f8f8;
+}
+
+.image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: scale(1.05);
+}
+
+.image-wrapper.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Scrollbar Styling */
+.menu-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.menu-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.menu-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .menu-container {
+        width: 100%;
+    }
+
+    .menu-image {
+        display: none;
+    }
+
+    .menu-content {
+        padding: 30px 20px;
+    }
+
+    .menu-content a {
+        font-size: 18px;
+        padding: 12px 16px;
+    }
+
+    .menu-toggle {
+        top: 20px;
+        left: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
