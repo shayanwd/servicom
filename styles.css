@@ -18,6 +18,7 @@ body {
     border-radius: 50%;
     cursor: pointer;
     z-index: 1000;
+    box-shadow: none !important;
     transition: transform 0.3s ease;
     padding: 0 !important;
 }
@@ -30,7 +31,7 @@ body {
     display: block;
     width: 24px;
     height: 2px;
-    background: #1a1a1a;
+    background: white;
     margin: 5px auto;
     transition: 0.4s;
     border-radius: 2px;
@@ -93,12 +94,14 @@ body {
 
 .back-button,
 .close-menu {
-    width: 40px;
-    height: 40px;
-    background: #d8268c;
+    width: 35px;
+    height: 35px;
+    background: #c9bb9e;
+    padding: 0 !important;
     color: white !important;
     border: none;
     border-radius: 50%;
+    box-shadow: none !important;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -197,7 +200,8 @@ body {
 .arrow {
     font-size: 20px;
     opacity: 0.5;
-    color: #d8268c;
+    color: #c9bb9e;
+
 }
 
 /* Image Section */
