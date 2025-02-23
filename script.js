@@ -124,17 +124,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Change Image
-    function changeImage(imagePath) {
-        const newImage = document.createElement('div');
-        newImage.className = 'image-wrapper';
-        newImage.style.backgroundImage = `url(${imagePath})`;
+    // Change Image/Video with fade effect
+    function changeImage(mediaPath) {
+        if (!mediaPath) return;
         
         gsap.to(imageWrapper, {
             opacity: 0,
             duration: 0.3,
             onComplete: () => {
-                imageWrapper.style.backgroundImage = `url(${imagePath})`;
+                // Clear existing content
+                imageWrapper.querySelector('img, video')?.remove();
+                
+                // Check if the path is for a video (common video extensions)
+                const isVideo = /\.(mp4|webm|ogg)$/i.test(mediaPath);
+                
+                if (isVideo) {
+                    const video = document.createElement('video');
+                    video.src = mediaPath;
+                    video.autoplay = true;
+                    video.loop = true;
+                    video.muted = true;
+                    video.playsInline = true;
+                    imageWrapper.insertBefore(video, imageWrapper.firstChild);
+                } else {
+                    const img = document.createElement('img');
+                    img.src = mediaPath;
+                    img.alt = "";
+                    imageWrapper.insertBefore(img, imageWrapper.firstChild);
+                }
+                
                 gsap.to(imageWrapper, {
                     opacity: 1,
                     duration: 0.3
@@ -166,6 +184,23 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (submenu) {
                 showSubmenu(submenu);
+            }
+        });
+
+        // New hover handlers
+        link.addEventListener('mouseenter', () => {
+            const image = link.dataset.image;
+            if (image) {
+                changeImage(image);
+            }
+        });
+
+        // Optional: Restore parent menu image when mouse leaves
+        link.addEventListener('mouseleave', () => {
+            const parentMenu = link.closest('.menu-content');
+            const parentLink = document.querySelector(`a[data-submenu="${parentMenu.dataset.menu}"]`);
+            if (parentLink && parentLink.dataset.image) {
+                changeImage(parentLink.dataset.image);
             }
         });
     });
