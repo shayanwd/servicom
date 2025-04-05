@@ -19,6 +19,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize GSAP
     gsap.config({ force3D: true });
 
+    // Preload all images and videos
+    function preloadMedia() {
+        // Preload main video
+        const mainVideo = document.querySelector('.menu-container video');
+        if (mainVideo) {
+            mainVideo.preload = 'auto';
+            mainVideo.load();
+        }
+        
+        // Preload all images and videos from menu items
+        const menuItems = document.querySelectorAll('.menu-content a[data-image]');
+        const preloadedMedia = {};
+        
+        menuItems.forEach(item => {
+            const mediaPath = item.getAttribute('data-image');
+            if (!mediaPath) return;
+            
+            // Check if it's a video
+            const isVideo = /\.(mp4|webm|ogg)$/i.test(mediaPath);
+            
+            if (isVideo) {
+                // Preload video
+                const video = document.createElement('video');
+                video.preload = 'auto';
+                video.src = mediaPath;
+                video.load();
+                preloadedMedia[mediaPath] = video;
+            } else {
+                // Preload image
+                const img = new Image();
+                img.src = mediaPath;
+                preloadedMedia[mediaPath] = img;
+            }
+        });
+        
+        return preloadedMedia;
+    }
+
+    // Initialize preloaded media
+    let preloadedMedia = {};
+
     // Open Menu
     function openMenu() {
         if (isAnimating) return;
@@ -332,29 +373,55 @@ document.addEventListener('DOMContentLoaded', () => {
                             // Check if the path is for a video (common video extensions)
                             const isVideo = /\.(mp4|webm|ogg)$/i.test(mediaPath);
                             
-                            if (isVideo) {
-                                const video = document.createElement('video');
-                                video.src = mediaPath;
-                                video.autoplay = true;
-                                video.loop = true;
-                                video.muted = true;
-                                video.playsInline = true;
-                                imageWrapper.insertBefore(video, imageWrapper.firstChild);
-                                
-                                // Add active class after a short delay
-                                setTimeout(() => {
-                                    video.classList.add('active');
-                                }, 50);
+                            // Use preloaded media if available
+                            if (preloadedMedia[mediaPath]) {
+                                if (isVideo) {
+                                    const video = preloadedMedia[mediaPath].cloneNode(true);
+                                    video.autoplay = true;
+                                    video.loop = true;
+                                    video.muted = true;
+                                    video.playsInline = true;
+                                    imageWrapper.insertBefore(video, imageWrapper.firstChild);
+                                    
+                                    // Add active class after a short delay
+                                    setTimeout(() => {
+                                        video.classList.add('active');
+                                    }, 50);
+                                } else {
+                                    const img = preloadedMedia[mediaPath].cloneNode(true);
+                                    imageWrapper.insertBefore(img, imageWrapper.firstChild);
+                                    
+                                    // Add active class after a short delay
+                                    setTimeout(() => {
+                                        img.classList.add('active');
+                                    }, 50);
+                                }
                             } else {
-                                const img = document.createElement('img');
-                                img.src = mediaPath;
-                                img.alt = "";
-                                imageWrapper.insertBefore(img, imageWrapper.firstChild);
-                                
-                                // Add active class after a short delay
-                                setTimeout(() => {
-                                    img.classList.add('active');
-                                }, 50);
+                                // Fallback to original loading method if not preloaded
+                                if (isVideo) {
+                                    const video = document.createElement('video');
+                                    video.src = mediaPath;
+                                    video.autoplay = true;
+                                    video.loop = true;
+                                    video.muted = true;
+                                    video.playsInline = true;
+                                    imageWrapper.insertBefore(video, imageWrapper.firstChild);
+                                    
+                                    // Add active class after a short delay
+                                    setTimeout(() => {
+                                        video.classList.add('active');
+                                    }, 50);
+                                } else {
+                                    const img = document.createElement('img');
+                                    img.src = mediaPath;
+                                    img.alt = "";
+                                    imageWrapper.insertBefore(img, imageWrapper.firstChild);
+                                    
+                                    // Add active class after a short delay
+                                    setTimeout(() => {
+                                        img.classList.add('active');
+                                    }, 50);
+                                }
                             }
                             
                             gsap.to(imageWrapper, {
@@ -465,6 +532,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Preload media when DOM is loaded
+    preloadedMedia = preloadMedia();
 
     // Initialize the menu
     resetMenu();
