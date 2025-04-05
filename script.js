@@ -21,20 +21,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Preload all images and videos
     function preloadMedia() {
-        // Preload main video
+        // Preload main video - only target the specific menu video
         const mainVideo = document.querySelector('.menu-container video');
         if (mainVideo) {
             mainVideo.preload = 'auto';
             mainVideo.load();
         }
         
-        // Preload all images and videos from menu items
+        // Preload all images and videos from menu items - only target menu-specific media
         const menuItems = document.querySelectorAll('.menu-content a[data-image]');
         const preloadedMedia = {};
         
         menuItems.forEach(item => {
             const mediaPath = item.getAttribute('data-image');
             if (!mediaPath) return;
+            
+            // Skip if the media path is from WordPress content
+            if (mediaPath.includes('/wp-content/uploads/') && !mediaPath.includes('menu-')) {
+                return;
+            }
             
             // Check if it's a video
             const isVideo = /\.(mp4|webm|ogg)$/i.test(mediaPath);
