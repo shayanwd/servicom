@@ -96,7 +96,7 @@ body {
     overflow: hidden;
     position: relative;
     background: #fff;
-    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    /* border-right: 1px solid rgba(0, 0, 0, 0.05); */
     will-change: transform;
     /* Optimize for animations */
 }
@@ -121,7 +121,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.05); */
     /* background: rgba(255, 255, 255, 0.98); */
     backdrop-filter: blur(10px);
 }
@@ -259,7 +259,7 @@ body {
 .menu-content li a {
     display: block;
     padding: 12px 0;
-    color: #333;
+    color: white;
     text-decoration: none;
     font-size: 18px;
     transition: all 0.3s ease;
@@ -270,12 +270,12 @@ body {
 }
 
 .menu-content li a:hover {
-    color: #000;
+    color: #c9bb9e;
     padding-right: 10px;
 }
 
 .menu-content li a.active {
-    color: #000;
+    color: #c9bb9e;
     font-weight: 500;
     padding-right: 15px;
 }
@@ -288,7 +288,7 @@ body {
     transform: translateY(-50%);
     width: 4px;
     height: 70%;
-    background-color: #000;
+    background-color: #c9bb9e;
     border-radius: 2px;
 }
 
