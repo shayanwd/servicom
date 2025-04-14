@@ -518,10 +518,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Menu Item Click Handler
     document.querySelectorAll('.menu-content a').forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
-            
             const submenu = link.dataset.submenu;
             const image = link.dataset.image;
+            const href = link.getAttribute('href');
+            
+            // If it's a direct link (not #), navigate to the page
+            if (href && href !== '#' && !submenu) {
+                window.location.href = href;
+                return;
+            }
+            
+            e.preventDefault();
             
             // Set active menu item
             setActiveMenuItem(link);

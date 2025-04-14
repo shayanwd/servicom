@@ -95,9 +95,10 @@ body {
     height: 100%;
     overflow: hidden;
     position: relative;
-    background: #fff;
+    backdrop-filter: blur(100px);
     /* border-right: 1px solid rgba(0, 0, 0, 0.05); */
     will-change: transform;
+
     /* Optimize for animations */
 }
 
@@ -113,7 +114,17 @@ body {
     backface-visibility: hidden;
     /* Reduce flickering */
     -webkit-backface-visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
 }
+
+body:has(.blur-removed) .menu-container video {
+    opacity: 1;
+    transition: 0.3s;
+}
+
+
+
 
 /* Menu Header */
 .menu-header {
@@ -121,9 +132,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* border-bottom: 1px solid rgba(0, 0, 0, 0.05); */
-    /* background: rgba(255, 255, 255, 0.98); */
-    backdrop-filter: blur(10px);
+
 }
 
 .back-button,
@@ -196,7 +205,7 @@ body {
     transition: filter 0.6s ease;
 }
 
-.menu-wrapper::before {
+/* .menu-wrapper::before {
     content: '';
     position: absolute;
     top: 0;
@@ -206,13 +215,13 @@ body {
     transition: 0.3s;
     backdrop-filter: blur(10px);
     transition-delay: 0.3s;
-}
+} */
 
-.menu-wrapper.blur-removed::before {
+/* .menu-wrapper.blur-removed::before {
     backdrop-filter: blur(0px);
     transition: 0.3s;
     transition-delay: 0.3s;
-}
+} */
 
 .menu-content {
     position: absolute;
