@@ -115,6 +115,7 @@ body {
     /* Reduce flickering */
     -webkit-backface-visibility: hidden;
     opacity: 0;
+    pointer-events: none;
     transition: 0.3s;
 }
 
@@ -130,7 +131,7 @@ body:has(.blur-removed) .menu-container video {
 .menu-header {
     padding: 25px 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 
 }
