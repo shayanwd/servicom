@@ -522,9 +522,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const image = link.dataset.image;
             const href = link.getAttribute('href');
             
-            // If it's a direct link (not #), navigate to the page
+            // If it's a direct link (not #), close menu first then navigate
             if (href && href !== '#' && !submenu) {
-                window.location.href = href;
+                e.preventDefault();
+                const targetUrl = href;
+                
+                // Set active menu item
+                setActiveMenuItem(link);
+                
+                // Show image only on click, not on hover
+                if (image) {
+                    changeImage(image);
+                }
+                
+                // Close menu and then navigate
+                closeMenu();
+                
+                // Wait for menu to close before navigating
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 800); // Match this with the menu close animation duration
                 return;
             }
             
