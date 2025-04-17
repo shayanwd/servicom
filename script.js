@@ -520,13 +520,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Menu Item Click Handler
     document.querySelectorAll('.menu-content a').forEach(link => {
+        const isMobile = () => window.innerWidth <= 768;
+        
         link.addEventListener('click', (e) => {
             const submenu = link.dataset.submenu;
             const image = link.dataset.image;
             const pageLink = link.dataset.pageLink;
             const href = link.getAttribute('href');
             
-            // If it's a direct link (not #), navigate to the page
+            // For mobile: if there's a pageLink, use it directly
+            if (isMobile() && pageLink) {
+                window.location.href = pageLink;
+                return;
+            }
+            
+            // For desktop or items without pageLink
             if (href && href !== '#' && !submenu) {
                 window.location.href = href;
                 return;
@@ -537,8 +545,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Set active menu item
             setActiveMenuItem(link);
             
-            // Show image only on click, not on hover
-            if (image) {
+            // Show image only on desktop
+            if (!isMobile() && image) {
                 changeImage(image, pageLink);
             }
             
@@ -547,6 +555,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 showSubmenu(submenu);
             }
         });
+
+        // Update href for mobile on load and resize
+        const updateMobileHref = () => {
+            if (isMobile() && link.dataset.pageLink) {
+                link.href = link.dataset.pageLink;
+            } else if (!isMobile() && link.dataset.pageLink) {
+                link.href = '#';
+            }
+        };
+
+        // Initial update
+        updateMobileHref();
+
+        // Update on resize
+        window.addEventListener('resize', updateMobileHref);
     });
 
     // Preload media when DOM is loaded
