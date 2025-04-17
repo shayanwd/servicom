@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Change Image/Video with fade effect
-    function changeImage(mediaPath) {
+    function changeImage(mediaPath, pageLink) {
         if (!mediaPath) {
             // Hide image section with animation
             gsap.to(menuImage, {
@@ -435,6 +435,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             });
                             
                             if (viewMoreLink) {
+                                // Update the View More link
+                                viewMoreLink.href = pageLink || '#';
+                                
                                 // Animate the view more link with a slight delay
                                 setTimeout(() => {
                                     viewMoreLink.classList.add('visible');
@@ -520,6 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             const submenu = link.dataset.submenu;
             const image = link.dataset.image;
+            const pageLink = link.dataset.pageLink;
             const href = link.getAttribute('href');
             
             // If it's a direct link (not #), navigate to the page
@@ -535,7 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Show image only on click, not on hover
             if (image) {
-                changeImage(image);
+                changeImage(image, pageLink);
             }
             
             // Open submenu on click
