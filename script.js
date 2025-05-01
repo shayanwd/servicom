@@ -225,22 +225,22 @@ document.addEventListener('DOMContentLoaded', () => {
         
         currentMenu = previousMenu;
         
-        // If going back to main menu, restore blur effect and hide image section
+        // Always hide image section when going back
+        gsap.to(menuImage, {
+            x: "100%",
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.inOut"
+        });
+        
+        // Hide view more link
+        if (viewMoreLink) {
+            viewMoreLink.classList.remove('visible');
+        }
+        
+        // If going back to main menu, restore blur effect
         if (menuStack.length === 0) {
             menuWrapper.classList.remove('blur-removed');
-            
-            // Hide image section with faster animation
-            gsap.to(menuImage, {
-                x: "100%",
-                opacity: 0,
-                duration: 0.3,
-                ease: "power2.inOut"
-            });
-            
-            // Hide view more link
-            if (viewMoreLink) {
-                viewMoreLink.classList.remove('visible');
-            }
         }
         
         // Reset previous menu items to initial state
