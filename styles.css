@@ -126,6 +126,19 @@ body:has(.blur-removed) .menu-container video {
     transition-delay: 0.6s;
 }
 
+/* a.view-link-button {
+    border: none;
+    font-size: 14px !important;
+    color: #c9bb9e !important;
+    background-color: white !important;
+    width: fit-content;
+    margin-left: auto;
+    margin-top: 20px;
+    padding: 7px 20px;
+    border-radius: 50px !important;
+    text-decoration: none;
+} */
+
 
 
 
@@ -198,6 +211,7 @@ body:has(.blur-removed) .menu-container video {
 .close-menu {
     font-size: 24px;
     color: #1a1a1a;
+    z-index: 9999;
 }
 
 /* Menu Content */
