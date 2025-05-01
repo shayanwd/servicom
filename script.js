@@ -76,23 +76,23 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Reset menu items to initial state before animation
         const menuItems = document.querySelectorAll('.menu-content[data-menu="main"] li');
-        gsap.set(menuItems, { x: 30, opacity: 0 });
+        gsap.set(menuItems, { x: 20, opacity: 0 });
         
-        // Simplified animation
+        // Simplified and faster animation
         gsap.fromTo(sideMenu, 
             { x: "-100%" },
             {
                 x: "0%",
-                duration: 0.8,
-                ease: "power4.out",
+                duration: 0.4,
+                ease: "power2.out",
                 onComplete: () => {
-                    // Animate menu items one by one
+                    // Animate menu items one by one with reduced stagger
                     gsap.to(menuItems, 
                         { 
                             x: 0, 
                             opacity: 1, 
-                            duration: 0.6, 
-                            stagger: 0.08, 
+                            duration: 0.3, 
+                            stagger: 0.04, 
                             ease: "power2.out",
                             onComplete: () => {
                                 isAnimating = false;
@@ -103,11 +103,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         );
 
-        // Fade in overlay
+        // Fade in overlay faster
         gsap.to(overlay, {
             opacity: 1,
-            duration: 0.6,
-            ease: "power4.out"
+            duration: 0.3,
+            ease: "power2.out"
         });
     }
 
@@ -119,16 +119,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const menuItems = document.querySelectorAll('.menu-content li');
         
         gsap.to(menuItems, {
-            x: 30,
+            x: 20,
             opacity: 0,
-            duration: 0.4,
-            stagger: 0.03,
+            duration: 0.2,
+            stagger: 0.02,
             ease: "power2.in",
             onComplete: () => {
                 gsap.to(sideMenu, {
                     x: "-100%",
-                    duration: 0.6,
-                    ease: "power4.inOut",
+                    duration: 0.3,
+                    ease: "power2.inOut",
                     onComplete: () => {
                         overlay.classList.remove('active');
                         sideMenu.classList.remove('active');
@@ -140,19 +140,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Fade out overlay
+        // Fade out overlay faster
         gsap.to(overlay, {
             opacity: 0,
-            duration: 0.6,
-            ease: "power4.inOut"
+            duration: 0.3,
+            ease: "power2.inOut"
         });
         
-        // Hide image section with animation
+        // Hide image section with faster animation
         gsap.to(menuImage, {
             x: "100%",
             opacity: 0,
-            duration: 0.6,
-            ease: "power4.inOut"
+            duration: 0.3,
+            ease: "power2.inOut"
         });
         
         // Restore blur effect
@@ -175,32 +175,32 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Reset next menu items to initial state
         const nextMenuItems = nextMenuElement.querySelectorAll('li');
-        gsap.set(nextMenuItems, { x: 30, opacity: 0 });
+        gsap.set(nextMenuItems, { x: 20, opacity: 0 });
         
-        // Animate current menu to the left
+        // Animate current menu to the left faster
         gsap.to(currentMenuElement, {
             x: "-100%",
             opacity: 0,
-            duration: 0.6,
-            ease: "power3.inOut"
+            duration: 0.3,
+            ease: "power2.inOut"
         });
         
-        // Animate next menu from the right
+        // Animate next menu from the right faster
         gsap.fromTo(nextMenuElement,
             { x: "100%", opacity: 0 },
             { 
                 x: "0%", 
                 opacity: 1,
-                duration: 0.6, 
-                ease: "power3.inOut",
+                duration: 0.3, 
+                ease: "power2.inOut",
                 onComplete: () => {
-                    // Animate menu items one by one
+                    // Animate menu items one by one with reduced stagger
                     gsap.to(nextMenuItems, 
                         { 
                             x: 0, 
                             opacity: 1, 
-                            duration: 0.5, 
-                            stagger: 0.08, 
+                            duration: 0.2, 
+                            stagger: 0.04, 
                             ease: "power2.out",
                             onComplete: () => {
                                 isAnimating = false;
@@ -229,12 +229,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (menuStack.length === 0) {
             menuWrapper.classList.remove('blur-removed');
             
-            // Hide image section with animation
+            // Hide image section with faster animation
             gsap.to(menuImage, {
                 x: "100%",
                 opacity: 0,
-                duration: 0.6,
-                ease: "power4.inOut"
+                duration: 0.3,
+                ease: "power2.inOut"
             });
             
             // Hide view more link
@@ -245,32 +245,32 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Reset previous menu items to initial state
         const previousMenuItems = previousMenuElement.querySelectorAll('li');
-        gsap.set(previousMenuItems, { x: 30, opacity: 0 });
+        gsap.set(previousMenuItems, { x: 20, opacity: 0 });
         
-        // Animate current menu to the right
+        // Animate current menu to the right faster
         gsap.to(currentMenuElement, {
             x: "100%",
             opacity: 0,
-            duration: 0.6,
-            ease: "power3.inOut"
+            duration: 0.3,
+            ease: "power2.inOut"
         });
         
-        // Animate previous menu from the left
+        // Animate previous menu from the left faster
         gsap.fromTo(previousMenuElement,
             { x: "-100%", opacity: 0 },
             { 
                 x: "0%", 
                 opacity: 1,
-                duration: 0.6, 
-                ease: "power3.inOut",
+                duration: 0.3, 
+                ease: "power2.inOut",
                 onComplete: () => {
-                    // Animate menu items one by one
+                    // Animate menu items one by one with reduced stagger
                     gsap.to(previousMenuItems, 
                         { 
                             x: 0, 
                             opacity: 1, 
-                            duration: 0.5, 
-                            stagger: 0.08, 
+                            duration: 0.2, 
+                            stagger: 0.04, 
                             ease: "power2.out",
                             onComplete: () => {
                                 isAnimating = false;
@@ -301,15 +301,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Reset main menu items for animation
                 const menuItems = menu.querySelectorAll('li');
-                gsap.set(menuItems, { x: 30, opacity: 0 });
+                gsap.set(menuItems, { x: 20, opacity: 0 });
                 
                 // Animate menu items one by one
                 gsap.to(menuItems, 
                     { 
                         x: 0, 
                         opacity: 1, 
-                        duration: 0.5, 
-                        stagger: 0.08, 
+                        duration: 0.3, 
+                        stagger: 0.04, 
                         ease: "power2.out"
                     }
                 );
@@ -318,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Reset submenu items for animation
                 const menuItems = menu.querySelectorAll('li');
-                gsap.set(menuItems, { x: 30, opacity: 0 });
+                gsap.set(menuItems, { x: 20, opacity: 0 });
             }
         });
         
@@ -337,15 +337,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Change Image/Video with fade effect
+    // Change Image/Video with faster fade effect
     function changeImage(mediaPath, pageLink) {
         if (!mediaPath) {
-            // Hide image section with animation
+            // Hide image section with faster animation
             gsap.to(menuImage, {
                 x: "100%",
                 opacity: 0,
-                duration: 0.6,
-                ease: "power4.inOut"
+                duration: 0.3,
+                ease: "power2.inOut"
             });
             
             if (viewMoreLink) {
@@ -355,19 +355,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // Show image section with Rolls-Royce style animation
+        // Show image section with faster animation
         gsap.fromTo(menuImage, 
             { x: "100%", opacity: 0 },
             { 
                 x: "0%", 
                 opacity: 1, 
-                duration: 0.8, 
-                ease: "power4.out",
+                duration: 0.4, 
+                ease: "power2.out",
                 onComplete: () => {
-                    // Animate image wrapper
+                    // Animate image wrapper faster
                     gsap.to(imageWrapper, {
                         opacity: 0,
-                        duration: 0.4,
+                        duration: 0.2,
                         onComplete: () => {
                             // Clear existing content
                             const existingMedia = imageWrapper.querySelector('img, video');
@@ -375,32 +375,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                 existingMedia.remove();
                             }
                             
-                            // Check if the path is for a video (common video extensions)
+                            // Check if the path is for a video
                             const isVideo = /\.(mp4|webm|ogg)$/i.test(mediaPath);
                             
                             // Use preloaded media if available
                             if (preloadedMedia[mediaPath]) {
-                                if (isVideo) {
-                                    const video = preloadedMedia[mediaPath].cloneNode(true);
-                                    video.autoplay = true;
-                                    video.loop = true;
-                                    video.muted = true;
-                                    video.playsInline = true;
-                                    imageWrapper.insertBefore(video, imageWrapper.firstChild);
-                                    
-                                    // Add active class after a short delay
-                                    setTimeout(() => {
-                                        video.classList.add('active');
-                                    }, 50);
-                                } else {
-                                    const img = preloadedMedia[mediaPath].cloneNode(true);
-                                    imageWrapper.insertBefore(img, imageWrapper.firstChild);
-                                    
-                                    // Add active class after a short delay
-                                    setTimeout(() => {
-                                        img.classList.add('active');
-                                    }, 50);
-                                }
+                                const media = preloadedMedia[mediaPath].cloneNode();
+                                imageWrapper.insertBefore(media, imageWrapper.firstChild);
+                                
+                                // Add active class immediately
+                                media.classList.add('active');
                             } else {
                                 // Fallback to original loading method if not preloaded
                                 if (isVideo) {
@@ -412,47 +396,41 @@ document.addEventListener('DOMContentLoaded', () => {
                                     video.playsInline = true;
                                     imageWrapper.insertBefore(video, imageWrapper.firstChild);
                                     
-                                    // Add active class after a short delay
-                                    setTimeout(() => {
-                                        video.classList.add('active');
-                                    }, 50);
+                                    // Add active class immediately
+                                    video.classList.add('active');
                                 } else {
                                     const img = document.createElement('img');
                                     img.src = mediaPath;
                                     img.alt = "";
                                     imageWrapper.insertBefore(img, imageWrapper.firstChild);
                                     
-                                    // Add active class after a short delay
-                                    setTimeout(() => {
-                                        img.classList.add('active');
-                                    }, 50);
+                                    // Add active class immediately
+                                    img.classList.add('active');
                                 }
                             }
                             
                             gsap.to(imageWrapper, {
                                 opacity: 1,
-                                duration: 0.4
+                                duration: 0.2
                             });
                             
                             if (viewMoreLink) {
                                 // Update the View More link
                                 viewMoreLink.href = pageLink || '#';
                                 
-                                // Animate the view more link with a slight delay
-                                setTimeout(() => {
-                                    viewMoreLink.classList.add('visible');
-                                    
-                                    // Add a subtle animation to the button
-                                    gsap.fromTo(viewMoreLink, 
-                                        { scale: 0.9, opacity: 0 },
-                                        { 
-                                            scale: 1, 
-                                            opacity: 1, 
-                                            duration: 0.5, 
-                                            ease: "back.out(1.2)" 
-                                        }
-                                    );
-                                }, 400);
+                                // Animate the view more link faster
+                                viewMoreLink.classList.add('visible');
+                                
+                                // Add a subtle animation to the button
+                                gsap.fromTo(viewMoreLink, 
+                                    { scale: 0.9, opacity: 0 },
+                                    { 
+                                        scale: 1, 
+                                        opacity: 1, 
+                                        duration: 0.3, 
+                                        ease: "power2.out" 
+                                    }
+                                );
                             }
                         }
                     });
