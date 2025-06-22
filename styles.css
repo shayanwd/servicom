@@ -1,16 +1,3 @@
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    overflow-x: hidden;
-    color: #1a1a1a;
-}
-
 /* Hamburger Menu Button */
 .menu-toggle {
     background: transparent !important;
@@ -548,5 +535,100 @@ body:has(.blur-removed) .menu-container video {
     .menu-content a {
         font-size: 15px;
         padding: 12px 15px;
+    }
+
+    /* Better spacing for mobile submenus */
+    .menu-content li {
+        margin: 12px 0;
+    }
+
+    /* Ensure View Page links are properly spaced on small screens */
+    .view-page-link {
+        margin: 15px 0 25px 0 !important;
+        padding: 18px 20px !important;
+    }
+}
+
+/* Additional improvements for mobile menu navigation */
+@media (max-width: 768px) {
+
+    /* Improve back button positioning on mobile */
+    .back-button {
+        right: 20px;
+        top: 20px;
+        width: 45px;
+        height: 45px;
+    }
+
+    /* Better menu header spacing on mobile */
+    .menu-header {
+        padding: 20px 20px;
+    }
+
+    /* Improve menu content spacing */
+    .menu-content {
+        padding: 30px 20px;
+        margin-top: 80px;
+    }
+
+    /* Better touch targets for menu items */
+    .menu-content a {
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    /* Add visual separator for View Page links */
+    .view-page-link {
+        border-bottom: 2px solid rgba(201, 187, 158, 0.2) !important;
+        padding-bottom: 15px !important;
+    }
+}
+
+/* View Page Link Styling */
+.view-page-link {
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0 !important;
+    font-weight: 600 !important;
+    color: #c9bb9e !important;
+    position: relative !important;
+    margin-bottom: 0px !important;
+    display: none !important;
+    height: fit-content !important;
+    font-size: 14px !important;
+}
+
+
+
+.view-page-link::before {
+    content: '📄';
+    margin-right: 8px;
+    font-size: 12px !important;
+}
+
+/* Mobile specific styling for view page links */
+@media (max-width: 768px) {
+    .view-page-link {
+
+        padding: 0px !important;
+        text-align: center !important;
+        margin: 0 0 10px 0 !important;
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+
+    }
+
+    .view-page-link:hover {
+        background-color: rgba(201, 187, 158, 0.25) !important;
+        transform: none !important;
+    }
+
+    .view-page-link::before {
+        content: '📄';
+        margin-right: 10px;
+        font-size: 16px;
     }
 }
